@@ -7,3 +7,4 @@ dependencies:
   - opencv
   - pcl
   - ros-noetic-ros-comm
+  # - boost-cpp
