@@ -17,8 +17,7 @@
 #include <string>
 #include <thread>
 
-void ros_init()
-{
+void ros_init(){
     int argc = 1;
     char *argv[1];
     argv[0] = new char[9];
