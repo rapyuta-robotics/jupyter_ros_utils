@@ -7,4 +7,5 @@ dependencies:
   - opencv
   - pcl
   - ros-noetic-ros-comm
+  - xwidgets
   # - boost-cpp
