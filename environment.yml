@@ -1,5 +1,9 @@
 name: test
 channels:
   - conda-forge
+  - robostack
 dependencies:
   - xeus-cling
+  - opencv
+  - pcl
+  - ros-noetic-ros-comm
