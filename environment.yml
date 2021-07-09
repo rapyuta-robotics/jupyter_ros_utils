@@ -1,4 +1,4 @@
-name: xeus-cling_1
+name: jupyter_ros
 channels:
   - conda-forge
   - defaults
