@@ -1,4 +1,4 @@
-#!/bin/env python3
+#!/usr/bin/env python3
 """
 Scripts that takes a pkg-config library name and convert it to `#pragma cling` related code for loading the 3rd party
 library in the C++ Jupyter Notebook

@@ -1,4 +1,4 @@
-#!/bin/env python3
+#!/usr/bin/env python3
 """
 Scripts that generate required `#pragma cling` for loading the boost library in the C++ Jupyter Notebook
 using the git source code
