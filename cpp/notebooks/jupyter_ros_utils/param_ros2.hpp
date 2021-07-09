@@ -1,7 +1,6 @@
 #pragma once
 
 #include <atomic>
-#include <chrono>
 #include <thread>
 
 #include <string>
@@ -13,11 +12,11 @@
 #include <xwidgets/xtext.hpp>
 #include <xwidgets/xvalid.hpp>
 
-#include <rclcpp/rclcpp.hpp>
-
 #include <unistd.h>
 
-class ZeusParam: public rclcpp::Node {
+#include "init_ros2.hpp"
+
+class ZeusParam2: public rclcpp::Node {
 private:
     // widget objects
     xw::valid valid;
@@ -39,13 +38,14 @@ private:
 
     // ros stuff
     rclcpp::TimerBase::SharedPtr timer;
+    std::thread spin_thread;
 
     std::atomic<bool> thr_running;
     std::thread thr;
     rclcpp::Rate m_rate;
 
 public:
-    ZeusParam()
+    ZeusParam2()
             : Node("param_widget")
             , valid()
             , txt_param()
@@ -60,7 +60,7 @@ public:
         lbl_param.value = "param_name";
         txt_param.on_submit([this]() { valid.value = this->has_parameter(txt_param.value); });
         lbl_value.value = "param_value";
-        txt_value.on_submit(std::bind(&ZeusParam::set_param_value, this));
+        txt_value.on_submit(std::bind(&ZeusParam2::set_param_value, this));
         btn_wait.description = "Start Waiting";
         btn_wait.on_click([this]() {
             if (thr_running) {
@@ -70,7 +70,7 @@ public:
             }
         });
         btn_set.description = "Set Param";
-        btn_set.on_click(std::bind(&ZeusParam::set_param_value, this));
+        btn_set.on_click(std::bind(&ZeusParam2::set_param_value, this));
 
         // set up layout
         // | lbl_param | txt_param | valid  | btn_wait
@@ -115,7 +115,7 @@ private:
         txt_value.disabled = true;
         btn_wait.description = "Stop Waiting";
 
-        thr = std::thread(&ZeusParam::thread_loop, this);
+        thr = std::thread(&ZeusParam2::thread_loop, this);
     }
 
     void thread_loop() {
@@ -146,39 +146,17 @@ private:
         }
     }
 
-
-    std::thread spin_thread;
     void setup_spin_thread() {
 
         if (spin_thread.joinable()) {
             // should never happen
             spin_thread.join();
         }
-        spin_thread = std::thread([this]{ 
-            while(rclcpp::ok()) { 
-                rclcpp::spin_some(getNode()); 
+        spin_thread = std::thread([this]{
+            while(rclcpp::ok()) {
+                rclcpp::spin_some(shared_from_this());
                 m_rate.sleep();
             }
         });
     }
-
-    public:
-    std::shared_ptr<Node> getNode() {
-        return this->shared_from_this();
-    }
-
 };
-
-
-std::shared_ptr<rclcpp::Node> ros_init() {
-    auto node_ptr = std::make_shared<ZeusParam>();
-    return node_ptr->getNode();
-}
-
-
-int argc = 1;
-char *argv[1];
-argv[0] = new char[9];
-strcpy(argv[0], "jupyter");
-
-rclcpp::init(argc, argv);
