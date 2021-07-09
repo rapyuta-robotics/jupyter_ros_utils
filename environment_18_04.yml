@@ -1,4 +1,4 @@
-name: jupyter_ros_utils
+name: xeus-cling_1
 channels:
   - conda-forge
   - defaults
@@ -18,6 +18,9 @@ dependencies:
   - binutils_impl_linux-64=2.34=h53a641e_7
   - binutils_linux-64=2.34=hc952b39_18
   - bleach=3.3.0=pyh44b312d_0
+  - boost=1.76.0=py39h5472131_0
+  - boost-cpp=1.76.0=h312852a_1
+  - bzip2=1.0.8=h7f98852_4
   - ca-certificates=2021.5.30=ha878542_0
   - cairo=1.16.0=h6cf1ce9_1008
   - certifi=2021.5.30=py39hf3d152e_0
@@ -73,15 +76,21 @@ dependencies:
   - krb5=1.19.1=hcc1bbae_0
   - ld_impl_linux-64=2.34=h53a641e_7
   - lerc=2.2.1=h9c3ff4c_0
+  - libblas=3.9.0=9_openblas
+  - libcblas=3.9.0=9_openblas
   - libcups=2.3.3=hf5a7f15_0
   - libdeflate=1.7=h7f98852_5
   - libedit=3.1.20191231=he28a2e2_2
   - libffi=3.3=h58526e2_2
   - libgcc-devel_linux-64=9.3.0=h7864c58_19
   - libgcc-ng=9.3.0=h2828fa1_19
+  - libgfortran-ng=9.3.0=hff62375_19
+  - libgfortran5=9.3.0=hff62375_19
   - libglib=2.68.3=h3e27bee_0
   - libgomp=9.3.0=h2828fa1_19
   - libiconv=1.16=h516909a_0
+  - liblapack=3.9.0=9_openblas
+  - libopenblas=0.3.15=pthreads_h8fe5266_1
   - libpng=1.6.37=h21135ba_2
   - librsvg=2.50.7=hc3c00ef_0
   - libsodium=1.0.18=h36c2ea0_1
@@ -103,6 +112,7 @@ dependencies:
   - nest-asyncio=1.5.1=pyhd8ed1ab_0
   - nlohmann_json=3.6.1=he1b5a44_0
   - notebook=6.4.0=pyha770c72_0
+  - numpy=1.21.0=py39hdbf815f_0
   - openssl=1.1.1k=h7f98852_0
   - packaging=21.0=pyhd8ed1ab_0
   - pandoc=2.14.0.3=h7f98852_0
@@ -170,3 +180,5 @@ dependencies:
   - zipp=3.5.0=pyhd8ed1ab_0
   - zlib=1.2.11=h516909a_1010
   - zstd=1.5.0=ha95c52a_0
+  - pip:
+    - pkgconfig==1.5.4
