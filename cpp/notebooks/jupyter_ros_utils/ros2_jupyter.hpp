@@ -1,5 +1,6 @@
 #pragma once
 
+#include <unistd.h>
 #include <cstring>
 #include <memory>
 #include <thread>
@@ -154,11 +155,12 @@ private:
     xw::hbox label_txt_param_layout;  // part of left_section
     xw::hbox label_txt_value_layout;  // part of left_section
 
+    // threadding
     std::atomic<bool> thr_running;
     std::thread thr;
 
     // ros stuff
-    rclcpp::Node* node;
+    rclcpp::Node* nh;
 
 public:
     ZeusParamWidget(rclcpp::Node* nh)
@@ -173,7 +175,7 @@ public:
 
         // init compontents
         lbl_param.value = "param_name";
-        txt_param.on_submit([this]() { valid.value = nh->has_parameter(txt_param.value); });
+        txt_param.on_submit([this]() { valid.value = this->nh->has_parameter(txt_param.value); });
         lbl_value.value = "param_value";
         txt_value.on_submit(std::bind(&ZeusParamWidget::set_param_value, this));
         btn_wait.description = "Start Waiting";
@@ -266,10 +268,10 @@ class JupyterNodeAdvanced: ROS2Init, public NodeType {
     xw::button spin_btn;
     xw::valid ros_valid;
     xw::hbox disp_box;
-    
+
     std::thread spin_thread;
     rclcpp::Rate m_rate;
-    
+
     void toggle(bool skip_check = false) {
         if (skip_check == false && rclcpp::ok()) {
         std::cout << "shutdown\n";
@@ -283,21 +285,20 @@ class JupyterNodeAdvanced: ROS2Init, public NodeType {
         }
         ros_valid.value = rclcpp::ok();
     }
-    
+
     void setup_thread() {
         if (spin_thread.joinable()) {
             // should never happen
             spin_thread.join();
         }
-        spin_thread = std::thread([this]{ 
+        spin_thread = std::thread([this]{
             ros_valid.value = rclcpp::ok();
-            while(rclcpp::ok()) { 
-                rclcpp::spin_some(getNode()); 
+            while(rclcpp::ok()) {
+                rclcpp::spin_some(getNode());
                 m_rate.sleep();
             }
-            ros_valid.value = false; 
+            ros_valid.value = false;
         });
-    
     }
 
 public:
@@ -305,14 +306,14 @@ public:
         return this->shared_from_this();
     }
 
-    JupyterNodeAdvanced(double rate = 10): NodeType("interative_node"), m_rate(rate) {
+    JupyterNodeAdvanced(double rate = 10): NodeType("interactive_node"), m_rate(rate) {
         spin_btn.description = "Stop";
         spin_btn.on_click([this]{toggle();});
-        
+
         disp_box.add(spin_btn);
         disp_box.add(ros_valid);
         disp_box.display();
-        
+
         setup_thread();
     }
 
