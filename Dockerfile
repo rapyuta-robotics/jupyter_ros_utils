@@ -27,7 +27,8 @@ RUN TARGETARCH="$(echo ${TARGETPLATFORM} | cut -d / -f 2)"; case ${TARGETARCH} i
     chmod +x /usr/local/bin/tini && \
     wget --no-hsts --quiet https://github.com/conda-forge/miniforge/releases/download/${MINIFORGE_VERSION}/${MINIFORGE_NAME}-${MINIFORGE_VERSION}-Linux-$(uname -m).sh -O /tmp/miniforge.sh && \
     /bin/bash /tmp/miniforge.sh -b -p ${CONDA_DIR}
-RUN /bin/bash -c "conda install -c conda-forge boost xeus-cling xwidgets widgetsnbextension jupyterlab"
+# TODO: figure out miniforge version that uses python 3.8 so we don't waste internet bandwith
+RUN /bin/bash -c "conda install -c conda-forge python=3.8 xeus-cling xwidgets widgetsnbextension jupyterlab boost=1.71.0 boost-cpp=1.71.0"
 
 # cleanup conda installation
 RUN rm /tmp/miniforge.sh
