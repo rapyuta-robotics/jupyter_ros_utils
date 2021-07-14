@@ -1,4 +1,5 @@
 # Jupyter ROS Utils
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/rapyuta-robotics/jupyter_ros_utils/HEAD)
 
 This repo contains tools to ease the pain of setting up C++ libraries such as ROS into Jupyter Notebook. We also provided examples notebook to load 3rd party C++ libraries and ROS.
 
@@ -29,9 +30,9 @@ After finishing the installation, you can check the instruction inside of our no
 
 # Status
 - [x] Automatic flags generation for for 3rd party library
-- [x] Example notebook for 3rd party library([OpenCV](cpp/notebooks/cpp_opencv4.ipynb), [PCL](cpp/notebooks/cpp_pcl-1.10.ipynb))
-- [x] Example notebook: ROS1 [Publisher](cpp/notebooks/cpp_ros_publisher.ipynb), and [Subscriber](cpp/notebooks/cpp_ros_subscriber.ipynb)
-- [x] Example notebook: Widget ROS1 [Publisher](cpp/notebooks/cpp_ros_async_callback_publisher.ipynb), [Subscriber](cpp/notebooks/cpp_ros_async_subscriber.ipynb), and [Param](cpp/notebooks/cpp_ros_param_widget.ipynb)
+- [x] Example notebook for 3rd party library([OpenCV](cpp/notebooks/opencv4.ipynb), [PCL](cpp/notebooks/pcl-1.10.ipynb))
+- [x] Example notebook: ROS1 [Publisher](cpp/notebooks/ros1_publisher.ipynb), and [Subscriber](cpp/notebooks/ros1_subscriber.ipynb)
+- [x] Example notebook: Widget ROS1 [Publisher](cpp/notebooks/ros1_widget_publisher_callback.ipynb), [Subscriber](cpp/notebooks/ros1_widget_subscriber.ipynb), and [Param](cpp/notebooks/ros1_widget_param.ipynb)
 - [ ] Example notebook: ROS2 Subscriber and Publisher
 - [x] Example notebook: Widget ROS2 [Subscriber](cpp/notebooks/ros2_subscriber.ipynb)
 - [ ] Example notebook: Widget ROS2 Publisher
