@@ -15,7 +15,7 @@
 #include "xwidgets/xtext.hpp"
 #include "xwidgets/xtextarea.hpp"
 
-#include "init.hpp"
+#include "ros1_init.hpp"
 
 /**
  * @brief Simple ROS publisher widgets to publish std_msgs::String based on user input in textbox

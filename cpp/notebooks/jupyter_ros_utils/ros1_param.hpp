@@ -9,7 +9,7 @@
 #include <xwidgets/xtext.hpp>
 #include <xwidgets/xvalid.hpp>
 
-#include "init.hpp"
+#include "ros1_init.hpp"
 
 struct ZeusParam {
 private:
