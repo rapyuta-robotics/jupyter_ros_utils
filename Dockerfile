@@ -59,5 +59,3 @@ RUN chown -R ${NB_UID} ${HOME}
 # Configure container startup
 USER ${NB_USER}
 WORKDIR ${HOME}
-ENTRYPOINT ["tini", "-g", "--"]
-CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser"]
