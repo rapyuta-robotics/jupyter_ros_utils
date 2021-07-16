@@ -33,6 +33,6 @@ After finishing the installation, you can check the instruction inside of our no
 - [x] Example notebook for 3rd party library([OpenCV](cpp/notebooks/opencv4.ipynb), [PCL](cpp/notebooks/pcl-1.10.ipynb))
 - [x] Example notebook: ROS1 [Publisher](cpp/notebooks/ros1_publisher.ipynb), and [Subscriber](cpp/notebooks/ros1_subscriber.ipynb)
 - [x] Example notebook: Widget ROS1 [Publisher](cpp/notebooks/ros1_widget_publisher_callback.ipynb), [Subscriber](cpp/notebooks/ros1_widget_subscriber.ipynb), and [Param](cpp/notebooks/ros1_widget_param.ipynb)
-- [ ] Example notebook: ROS2 Subscriber and Publisher
-- [x] Example notebook: Widget ROS2 [Subscriber](cpp/notebooks/ros2_subscriber.ipynb)
+- [x] Example notebook: ROS2 [Publisher](cpp/notebooks/ros2_publisher.ipynb) and [Subscriber](cpp/notebooks/ros2_subscribers.ipynb)
+- [x] Example notebook: Widget ROS2 [Subscriber](cpp/notebooks/ros2_widget_subscriber.ipynb)
 - [ ] Example notebook: Widget ROS2 Publisher
