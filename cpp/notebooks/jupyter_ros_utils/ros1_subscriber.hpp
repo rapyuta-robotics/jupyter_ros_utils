@@ -10,7 +10,7 @@
 #include <xwidgets/xbox.hpp>
 #include <xwidgets/xtextarea.hpp>
 
-#include "init.hpp"
+#include "ros1_init.hpp"
 
 /**
  * @brief ROS Subscriber with widgets for jupyter notebook
