@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unistd.h>
+#include <chrono>
 #include <cstring>
 #include <memory>
 #include <thread>
@@ -14,6 +15,8 @@
 #include <xwidgets/xvalid.hpp>
 
 #include <rclcpp/rclcpp.hpp>
+
+using namespace std::literals::chrono_literals;
 
 struct ROS2Init {
     ROS2Init() { ros_init(); }
@@ -161,10 +164,12 @@ private:
 
     // ros stuff
     rclcpp::Node* nh;
+    rclcpp::Rate rate;
 
 public:
     ZeusParamWidget(rclcpp::Node* nh)
             : nh(nh)
+            , rate(200ms)
             , valid()
             , txt_param()
             , btn_wait()
@@ -244,7 +249,7 @@ private:
                 valid.value = false;
                 txt_value.value = "";
             }
-            usleep(200'000);
+            rate.sleep();
         }
     }
 
@@ -317,8 +322,6 @@ public:
         setup_thread();
     }
 
-
-public:
     auto create_param_widgets() {
         return ZeusParamWidget(this);
 
