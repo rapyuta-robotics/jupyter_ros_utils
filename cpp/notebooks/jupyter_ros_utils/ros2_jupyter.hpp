@@ -266,7 +266,7 @@ private:
         txt_value.disabled = false;
         btn_wait.description = "Start Waiting";
 
-        usleep(1'000);
+        std::this_thread::sleep_for(1s);
 
         if (thr.joinable()) {
             thr.join();
