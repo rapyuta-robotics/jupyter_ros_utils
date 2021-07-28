@@ -217,6 +217,13 @@ public:
         display();
     }
 
+void set_parameter(const std::string& name, const std::string& value) {
+    txt_param.value = name;
+    txt_value.value = value;
+
+    set_param_value();
+}
+
 private:
     void display() { main_layout.display(); }
 
@@ -323,9 +330,16 @@ public:
     }
 
     auto create_param_widgets() {
-        return ZeusParamWidget(this);
-
+        return std::make_unique<ZeusParamWidget>(this);
     }
+
+    auto set_parameter(const std::string& name, const std::string& value) {
+    	auto widget = create_param_widgets();
+	    widget->set_parameter(name, value);
+
+        return std::move(widget);
+    }
+
     template<typename MessageT , typename CallbackT , typename AllocatorT = std::allocator<void>, typename CallbackMessageT = typename rclcpp::subscription_traits::has_message_type<CallbackT>::type, typename SubscriptionT = rclcpp::Subscription<CallbackMessageT, AllocatorT>, typename MessageMemoryStrategyT = rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, AllocatorT>>
     auto create_subscription(const std::string &topic_name, const rclcpp::QoS &qos, CallbackT &&callback,
             const rclcpp::SubscriptionOptionsWithAllocator< AllocatorT > &options=rclcpp::SubscriptionOptionsWithAllocator< AllocatorT >(),
