@@ -1,43 +1,4 @@
-### Ardiya Note: mostly stolen from
-### https://github.com/conda-forge/miniforge-images/blob/master/ubuntu/Dockerfile
-FROM ros:noetic-perception-focal
-
-# install bootstrap tools
-RUN apt-get update > /dev/null
-RUN apt-get install --no-install-recommends -y \
-    wget bzip2 ca-certificates \
-    git > /dev/null
-
-# cleanup apt
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/*
-
-### install conda miniforge ###
-ARG MINIFORGE_NAME=Miniforge3
-ARG MINIFORGE_VERSION=4.10.3-1
-ARG TINI_VERSION=v0.18.0
-ARG TARGETPLATFORM=amd64
-
-ENV CONDA_DIR=/opt/conda
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-ENV PATH=${CONDA_DIR}/bin:${PATH}
-
-RUN TARGETARCH="$(echo ${TARGETPLATFORM} | cut -d / -f 2)"; case ${TARGETARCH} in "ppc64le") TARGETARCH="ppc64el" ;; *) ;; esac ; \
-    wget --no-hsts --quiet https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-${TARGETARCH} -O /usr/local/bin/tini && \
-    chmod +x /usr/local/bin/tini && \
-    wget --no-hsts --quiet https://github.com/conda-forge/miniforge/releases/download/${MINIFORGE_VERSION}/${MINIFORGE_NAME}-${MINIFORGE_VERSION}-Linux-$(uname -m).sh -O /tmp/miniforge.sh && \
-    /bin/bash /tmp/miniforge.sh -b -p ${CONDA_DIR}
-# TODO: figure out miniforge version that uses python 3.8 so we don't waste internet bandwith
-RUN /bin/bash -c "conda install -c conda-forge python=3.8 xeus-cling xwidgets widgetsnbextension jupyterlab boost=1.71.0 boost-cpp=1.71.0"
-
-# cleanup conda installation
-RUN rm /tmp/miniforge.sh
-RUN conda clean -tipsy
-RUN find ${CONDA_DIR} -follow -type f -name '*.a' -delete
-RUN find ${CONDA_DIR} -follow -type f -name '*.pyc' -delete
-RUN conda clean -afy
-
-RUN echo ". ${CONDA_DIR}/etc/profile.d/conda.sh && conda activate base" >> /etc/skel/.bashrc
+FROM condaforge/mambaforge:4.10.3-7
 
 # Setup required user for running binder
 # https://mybinder.readthedocs.io/en/latest/tutorials/dockerfile.html
@@ -52,11 +13,22 @@ RUN adduser --disabled-password \
     --uid ${NB_UID} \
     ${NB_USER}
 
-RUN echo ". ${CONDA_DIR}/etc/profile.d/conda.sh && conda activate base" >> ${HOME}/.bashrc
+RUN apt-get update > /dev/null && \
+    apt-get install --no-install-recommends -y libgl1-mesa-glx libglu1-mesa && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    conda config --env --add channels conda-forge && \
+    conda config --env --add channels robostack && \
+    conda config --env --set channel_priority strict && \
+    mamba update -y mamba && \
+    mamba install -y python=3.8 xeus-cling xwidgets widgetsnbextension jupyterlab ros-noetic-desktop mesa-libgl-devel-cos6-x86_64 mesa-dri-drivers-cos6-x86_64 libselinux-cos6-x86_64 libxdamage-cos6-x86_64 libxxf86vm-cos6-x86_64 libxext-cos6-x86_64 xorg-libxfixes && \
+    conda clean -tipsy && \
+    conda clean -afy
+
 COPY . ${HOME}
 USER root
 RUN chown -R ${NB_UID} ${HOME}
-
-# Configure container startup
 USER ${NB_USER}
 WORKDIR ${HOME}
+RUN jupyter-notebook --generate-config && \
+    echo 'c.NotebookApp.terminado_settings = { "shell_command": ["/bin/bash"] }' >> /home/jovyan/.jupyter/jupyter_notebook_config.py

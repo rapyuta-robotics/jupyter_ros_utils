@@ -12,6 +12,11 @@ from subprocess import run
 from typing import List, Tuple
 import argparse
 
+LIBRARIES_IGNORE_LIST = [
+    "pthread",
+    "rt"
+]
+
 def retrieve_pkg_config_flags(libname: str)->List[str]:
     """
     Run pkg-config in the terminal and retrieve result
@@ -40,7 +45,7 @@ def split_flags(flags: List[str])->Tuple[List[str], List[str], List[str]]:
             libraries.append(flag[2:])
         else:
             libraries.append(flag)
-    
+
     return include_paths, library_paths, libraries
 
 def write_cling_pragmas_to_file(include_paths, library_paths, libraries, filename):
@@ -53,6 +58,7 @@ def write_cling_pragmas_to_file(include_paths, library_paths, libraries, filenam
             # -L to #pragma cling add_library_path()
             f.write('#pragma cling add_library_path("%s")\n' % x)
         for x in libraries:
+            if x in LIBRARIES_IGNORE_LIST: continue
             # -l & /path/to.so to #pragma cling load()
             f.write('#pragma cling load("%s")\n' % x)
 
