@@ -30,9 +30,9 @@ After finishing the installation, you can check the instruction inside of our no
 
 # Status
 - [x] Automatic flags generation for for 3rd party library
-- [x] Example notebook for 3rd party library([OpenCV](cpp/notebooks/opencv4.ipynb), [PCL](cpp/notebooks/pcl-1.10.ipynb))
-- [x] Example notebook: ROS1 [Publisher](cpp/notebooks/ros1_publisher.ipynb), [Subscriber](cpp/notebooks/ros1_subscriber.ipynb), [Service Server](cpp/notebooks/ros1_service_server.ipynb), and [Service Client](cpp/notebooks/ros1_service_client.ipynb)
-- [x] Example notebook: Widget ROS1 [Publisher](cpp/notebooks/ros1_widget_publisher_callback.ipynb), [Subscriber](cpp/notebooks/ros1_widget_subscriber.ipynb), and [Param](cpp/notebooks/ros1_widget_param.ipynb)
+- [x] Example notebook for 3rd party library([OpenCV & PCL](basic_c++_impl.ipynb))
+- [x] Example notebook: ROS1 [Publisher & Subscriber](cpp/notebooks/ros1_pub_sub.ipynb) and [Service Server & Client](cpp/notebooks/ros1_service_client.ipynb)
+- [x] Example notebook: ROS1 Tutorial using [Widgets](cpp/notebooks/ros1_widget_tutorial.ipynb)
 - [x] Example notebook: ROS2 [Publisher](cpp/notebooks/ros2_publisher.ipynb) and [Subscriber](cpp/notebooks/ros2_subscribers.ipynb)
 - [x] Example notebook: Widget ROS2 [Subscriber](cpp/notebooks/ros2_widget_subscriber.ipynb)
 - [ ] Example notebook: Widget ROS2 Publisher
